@@ -6,10 +6,15 @@ router.post('/newUser', (req, res) => {
     res.send(`O nome ${user} foi criado`);
 });
 
-router.delete('/newDelete', (req, res) => {
-    let user = 'Henrique'
-    res.send(`O nome ${user} foi deletado.`)
-});
+router.delete('/user', function (req, res, next) {
+    if(req.body.id == undefined){
+      res.status(404).json({message: "Error, not id in body"});
+    }
+    next();
+  }, function (req, res) {
+    res.send('User deleted!');
+  });
+  
 
 
 app.listen(3333, () => {
